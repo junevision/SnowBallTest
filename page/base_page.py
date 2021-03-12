@@ -12,25 +12,14 @@ from appium.webdriver.common.mobileby import MobileBy
 
 
 class BasePage:
-    def __init__(self, driver: WebDriver = None):
+    def __init__(self, func, driver: WebDriver = None):
         self.driver = driver
+        self.func = func
 
+    # @black_list
     def find(self, locator, value):
-        # black list including such as alert window, phone, message, ads
-        black_list = ['//*[@resource-id="com.xueqiu.android:id/iv_close"]']
-        try:
-            element = self.driver.find_element(locator, value)
-            return element
-        except Exception:
-            # following steps are in order to take out and handle all blocker
-            for ele_xpath in black_list:
-                # find the blocker whether exists
-                eles = self.finds(MobileBy.XPATH, ele_xpath)
-                # blocker exists, need to kill
-                if len(eles) > 0:
-                    eles[0].click()
-                    # keep killing until all blockers are handled
-                    self.find(locator, value)
+        element = self.driver.find_element(locator, value)
+        return element
 
     def finds(self, locator, value):
         elements = self.driver.find_elements(locator, value)
@@ -66,19 +55,20 @@ class BasePage:
 
                 self.driver.swipe(start_x, start_y, end_x, end_y, 1000)
 
-
-# def b(fun):
-#     def run(*args, **kwargs):  # 位置传参，关键字传参
-#         print("hello")
-#         fun(*args, **kwargs)
-#         print("bye")
-#
-#     return run
-#
-# @b
-# def a(k):
-#     print("i am a")
-#     print(k)
-#
-# def test():
-#     a("i am k")
+    def black_list(self, func):
+        def wrapper(*args, **kwargs):  # args is array, kwargs is dictionary
+            # black list including such as alert window, phone, message, ads
+            black_list = ['//*[@resource-id="com.xueqiu.android:id/iv_close"]']
+            try:
+                return func(*args, **kwargs)
+            except Exception:
+                # following steps are in order to take out and handle all blocker
+                for ele_xpath in black_list:
+                    # find the blocker whether exists
+                    eles = self.finds(MobileBy.XPATH, ele_xpath)
+                    # blocker exists, need to kill
+                    if len(eles) > 0:
+                        eles[0].click()
+                        # keep killing until all blockers are handled
+                        return func(*args, **kwargs)
+            return wrapper
