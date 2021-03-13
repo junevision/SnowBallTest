@@ -15,11 +15,12 @@ class BasePage:
     def __init__(self, driver: WebDriver = None):
         self.driver = driver
 
-    def handle_blacklist(self, func):
+    def handle_blacklist(func):
         # black list including such as alert window, phone, message, ads
         black_list = ['//*[@resource-id="com.xueqiu.android:id/iv_close"]']
 
         def wrapper(*args, **kwargs):  # args is array, kwargs is dictionary
+            self = args[0]
             try:
                 return func(*args, **kwargs)
             except Exception:
