@@ -6,7 +6,6 @@
 @time: 2021/3/12 11:07
 @desc: 
 """
-import yaml
 from appium.webdriver.common.mobileby import MobileBy
 from page.base_page import BasePage
 from page.market_page import MarketPage

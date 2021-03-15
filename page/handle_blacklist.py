@@ -8,7 +8,6 @@
 """
 import allure
 from appium.webdriver.common.mobileby import MobileBy
-
 from page.logger import log
 
 
