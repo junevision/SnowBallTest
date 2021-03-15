@@ -6,37 +6,21 @@
 @time: 2021/3/12 10:48
 @desc: 
 """
+import yaml
 from appium.webdriver.webdriver import WebDriver
 from selenium.common.exceptions import NoSuchElementException
 from appium.webdriver.common.mobileby import MobileBy
+from page.handle_blacklist import handle_blacklist
+from page.logger import log
 
 
 class BasePage:
     def __init__(self, driver: WebDriver = None):
         self.driver = driver
 
-    def handle_blacklist(func):
-        # black list including such as alert window, phone, message, ads
-        black_list = ['//*[@resource-id="com.xueqiu.android:id/iv_close"]']
-
-        def wrapper(*args, **kwargs):  # args is array, kwargs is dictionary
-            self = args[0]
-            try:
-                return func(*args, **kwargs)
-            except Exception:
-                # following steps are in order to take out and handle all blocker
-                for ele_xpath in black_list:
-                    # find the blocker whether exists
-                    eles = self.finds(MobileBy.XPATH, ele_xpath)
-                    # blocker exists, need to kill
-                    if len(eles) > 0:
-                        eles[0].click()
-                        # keep killing until all blockers are handled
-                        return func(*args, **kwargs)
-        return wrapper
-
     @handle_blacklist
     def find(self, locator, value):
+        log.info("find " + value)
         element = self.driver.find_element(locator, value)
         return element
 
@@ -73,3 +57,20 @@ class BasePage:
                 end_y = height * 0.2
 
                 self.driver.swipe(start_x, start_y, end_x, end_y, 1000)
+
+    def parse(self, yaml_path, func_name):
+        # analysis keyword, complete the relate action
+        with open(yaml_path, "r", encoding="utf-8") as f:
+            function = yaml.load(f)
+        # take function out from keyword
+        steps = function.get(func_name)
+        # analysis each group of keywords
+        for step in steps:
+            # if find out the keyword is find and click, then call the find and click function
+            if step.get("action") == "find_and_click":
+                self.find_and_click(step.get('locator'), step.get('value'))
+            elif step.get("action") == "find_and_send":
+                self.find_and_send(step.get('locator'), step.get('value'), step.get('content'))
+
+    def screenshot(self):
+        return self.driver.get_screenshot_as_png()
