@@ -1,2 +1,0 @@
-/usr/local/Cellar/scrcpy/1.17_1/share/scrcpy/scrcpy-server: 1 file pushed, 0 skipped. 42.1 MB/s (34930 bytes in 0.001s)
-[server] INFO: Device: vivo VIVO X20 (Android 6.0.1)

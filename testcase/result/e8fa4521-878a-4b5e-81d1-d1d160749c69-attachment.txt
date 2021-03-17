@@ -1,0 +1,11 @@
+2021-03-17 11:28:40.143 scrcpy[1812:2369222] INFO: scrcpy 1.17 <https://github.com/Genymobile/scrcpy>
+2021-03-17 11:28:40.808 scrcpy[1812:2369406] INFO: Recording started to matroska file: tmp.mkv
+[INFO] 2021-03-17 11:28:47,192 handle_blacklist.py:21:wrapper: find //*[@resource-id="com.xueqiu.android:id/post_status"]
+[INFO] 2021-03-17 11:28:47,192 base_page.py:23:find: find //*[@resource-id="com.xueqiu.android:id/post_status"]
+[INFO] 2021-03-17 11:28:52,089 handle_blacklist.py:21:wrapper: find //*[@text="行情"]
+[INFO] 2021-03-17 11:28:52,090 base_page.py:23:find: find //*[@text="行情"]
+[INFO] 2021-03-17 11:28:58,281 base_page.py:23:find: find //*[@text="行情"]
+[INFO] 2021-03-17 11:28:59,186 handle_blacklist.py:21:wrapper: find //*[@resource-id="com.xueqiu.android:id/action_search"]
+[INFO] 2021-03-17 11:28:59,186 base_page.py:23:find: find //*[@resource-id="com.xueqiu.android:id/action_search"]
+[INFO] 2021-03-17 11:29:01,747 handle_blacklist.py:21:wrapper: find //*[@resource-id="com.xueqiu.android:id/search_input_text"]
+[INFO] 2021-03-17 11:29:01,747 base_page.py:23:find: find //*[@resource-id="com.xueqiu.android:id/search_input_text"]

@@ -17,7 +17,7 @@ from page.logger import log_init
 def record():
     log_init()
     # do something before testcases running
-    cmd = "scrcpy -Nr tmp.mp4"  # shell command, activate scrcpy recording function
+    cmd = "scrcpy -m 1000 -Nr tmp.mkv"  # shell command, activate scrcpy recording function
     p = subprocess.Popen(cmd, shell=True)  # optional: os.system
     yield
     # do something after testcases finish
