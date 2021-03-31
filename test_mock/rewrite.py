@@ -16,6 +16,10 @@ class June:
         pass
 
     def response(self, flow: http.HTTPFlow):
+        """
+        use response event to complete rewrite
+        :param flow:
+        """
         # verify url request, whether it includes url info
         if "https://stock.xueqiu.com/v5/stock/batch/quote.json?_t=" in flow.request.pretty_url:
             # receive response data info

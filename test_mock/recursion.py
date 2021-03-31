@@ -16,6 +16,10 @@ class June:
         pass
 
     def response(self, flow: http.HTTPFlow):
+        """
+        use response event to complete data fake of response with recursion
+        :param flow:
+        """
         if "https://stock.xueqiu.com/v5/stock/batch/quote.json?_t=" in flow.request.pretty_url:
             data = self.handle_data(json.loads(flow.response.text))
             flow.response.text = json.dumps(data)

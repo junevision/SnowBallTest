@@ -15,7 +15,6 @@ class Junevision:
         """
         use request event to complete map local
         :param flow:
-        :return:
         """
         if "https://stock.xueqiu.com/v5/stock/batch/quote.json?_t=" in flow.request.pretty_url:
             with open("/Users/jun_lei/Documents/Jun/code/python/SnowBallTest/test_mock/test.json",
